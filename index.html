@@ -42,10 +42,6 @@
         input[type="submit"]:hover {
             background-color: #45a049;
         }
-        .required::after {
-            content: " *";
-            color: red;
-        }
         .status {
             margin-top: 20px;
             padding: 10px;
@@ -94,7 +90,7 @@
 
     <script>
         document.getElementById("dataForm").addEventListener("submit", async function(event) {
-            event.preventDefault(); // Prevent the form from refreshing the page
+            event.preventDefault(); // Prevent form submission refresh
 
             const subscriberId = document.getElementById("subscriberId").value;
             const firstName = document.getElementById("firstName").value;
@@ -108,15 +104,20 @@
                     dob = `${dobParts[1]}/${dobParts[2]}/${dobParts[0]}`;
                 }
             }
-            
-            // Using a CORS Proxy (Replace with your own proxy if needed)
+
             const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+            const demoUrl = proxyUrl + "https://api-np.fbhp.com/demo-server"; // Replace with actual demo URL
             const apiUrl = `https://api-np.fbhp.com/fbhpweb-member-facets-eapi-uat/api/member/status?subscriberId=${subscriberId}&fname=${firstName}&lname=${lastName}&dob=${dob}`;
-            const fullUrl = proxyUrl + apiUrl;
 
             try {
-                const response = await fetch(fullUrl);
+                // Step 1: Request the Demo Server
+                const demoResponse = await fetch(demoUrl);
+                if (!demoResponse.ok) {
+                    throw new Error("Demo server request failed");
+                }
 
+                // Step 2: Proceed with the API request after demo request
+                const response = await fetch(proxyUrl + apiUrl);
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
