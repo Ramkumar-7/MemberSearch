@@ -65,7 +65,7 @@
             background-color: #FF9800;
             color: black;
         }
-		.multiple-members {
+        .multiple-members {
             background-color: #FFFF00;
             color: black;
         }
@@ -108,28 +108,26 @@
                     dob = `${dobParts[1]}/${dobParts[2]}/${dobParts[0]}`;
                 }
             }
-			
-			
-			
-			const apiUrl = `https://api-np.fbhp.com/fbhpweb-member-facets-eapi-uat/api/member/status?subscriberId=${subscriberId}&fname=${firstName}&lname=${lastName}&dob=${dob}`;
-    
-			try {
-                const response = await fetch(apiUrl);
+            
+            // Using a CORS Proxy (Replace with your own proxy if needed)
+            const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+            const apiUrl = `https://api-np.fbhp.com/fbhpweb-member-facets-eapi-uat/api/member/status?subscriberId=${subscriberId}&fname=${firstName}&lname=${lastName}&dob=${dob}`;
+            const fullUrl = proxyUrl + apiUrl;
+
+            try {
+                const response = await fetch(fullUrl);
+
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
 
-			if (!response.ok) {
-				throw new Error("Network response was not ok");
-        }
+                const data = await response.json();
+                const eligibilityStatus = data.payload?.[0]?.eligibilityStatus;
 
-			const data = await response.json();
-			const eligibilityStatus = data.payload?.[0]?.eligibilityStatus;
+                if (!eligibilityStatus) {
+                    throw new Error("EligibilityStatus not found in the response.");
+                }
 
-			if (!eligibilityStatus) {
-				throw new Error("EligibilityStatus not found in the response.");
-        }
-           
                 const statusMessage = document.getElementById("statusMessage");
                 statusMessage.style.display = "block";
                 statusMessage.textContent = `Eligibility Status: ${eligibilityStatus}`;
@@ -141,7 +139,7 @@
                     statusMessage.classList.add("inactive");
                 } else if (eligibilityStatus === "Member not found") {
                     statusMessage.classList.add("not-found");
-				} else if (eligibilityStatus === "Multiple members available in the filter criteria, Provide subscriber Id for the exact result") {
+                } else if (eligibilityStatus === "Multiple members available in the filter criteria, Provide subscriber Id for the exact result") {
                     statusMessage.classList.add("multiple-members");
                 } else {
                     statusMessage.classList.add("other");
