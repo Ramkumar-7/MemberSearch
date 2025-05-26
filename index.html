@@ -42,6 +42,10 @@
         input[type="submit"]:hover {
             background-color: #45a049;
         }
+        .required::after {
+            content: " *";
+            color: red;
+        }
         .status {
             margin-top: 20px;
             padding: 10px;
@@ -61,7 +65,7 @@
             background-color: #FF9800;
             color: black;
         }
-        .multiple-members {
+		.multiple-members {
             background-color: #FFFF00;
             color: black;
         }
@@ -90,7 +94,7 @@
 
     <script>
         document.getElementById("dataForm").addEventListener("submit", async function(event) {
-            event.preventDefault(); // Prevent form submission refresh
+            event.preventDefault(); // Prevent the form from refreshing the page
 
             const subscriberId = document.getElementById("subscriberId").value;
             const firstName = document.getElementById("firstName").value;
@@ -104,31 +108,28 @@
                     dob = `${dobParts[1]}/${dobParts[2]}/${dobParts[0]}`;
                 }
             }
-
-            const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-            const demoUrl = proxyUrl + "https://api-np.fbhp.com/fbhpweb-member-facets-eapi-uat/api/member/status?subscriberId=&fname=&lname=&dob="; // Replace with actual demo URL
-            const apiUrl = `https://api-np.fbhp.com/fbhpweb-member-facets-eapi-uat/api/member/status?subscriberId=${subscriberId}&fname=${firstName}&lname=${lastName}&dob=${dob}`;
-
-            try {
-                // Step 1: Request the Demo Server
-                const demoResponse = await fetch(demoUrl);
-                if (!demoResponse.ok) {
-                    throw new Error("Demo server request failed");
-                }
-
-                // Step 2: Proceed with the API request after demo request
-                const response = await fetch(proxyUrl + apiUrl);
+			
+			
+			
+			const apiUrl = `https://api-np.fbhp.com/fbhpweb-member-facets-eapi-uat/api/member/status?subscriberId=${subscriberId}&fname=${firstName}&lname=${lastName}&dob=${dob}`;
+    
+			try {
+                const response = await fetch(apiUrl);
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
 
-                const data = await response.json();
-                const eligibilityStatus = data.payload?.[0]?.eligibilityStatus;
+			if (!response.ok) {
+				throw new Error("Network response was not ok");
+        }
 
-                if (!eligibilityStatus) {
-                    throw new Error("EligibilityStatus not found in the response.");
-                }
+			const data = await response.json();
+			const eligibilityStatus = data.payload?.[0]?.eligibilityStatus;
 
+			if (!eligibilityStatus) {
+				throw new Error("EligibilityStatus not found in the response.");
+        }
+           
                 const statusMessage = document.getElementById("statusMessage");
                 statusMessage.style.display = "block";
                 statusMessage.textContent = `Eligibility Status: ${eligibilityStatus}`;
@@ -140,7 +141,7 @@
                     statusMessage.classList.add("inactive");
                 } else if (eligibilityStatus === "Member not found") {
                     statusMessage.classList.add("not-found");
-                } else if (eligibilityStatus === "Multiple members available in the filter criteria, Provide subscriber Id for the exact result") {
+				} else if (eligibilityStatus === "Multiple members available in the filter criteria, Provide subscriber Id for the exact result") {
                     statusMessage.classList.add("multiple-members");
                 } else {
                     statusMessage.classList.add("other");
