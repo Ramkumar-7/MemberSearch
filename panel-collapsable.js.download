@@ -1,0 +1,22 @@
+/* &copy; 2015-2017 Cognizant TriZetto Software Group, Inc. All rights reserved. Confidential and Trade Secret Material.  */
+togglePanel = function(speed, func) {
+    $header = $(this);
+    speed = speed || 500;
+
+    var icon = $header.find("i.fi");
+    var toggle = icon.data("toggleIcons") || "fi-expand fi-collapse";
+    icon.toggleClass(toggle);
+
+    $content = $header.next();
+    $content.slideToggle(speed, func);
+}
+
+openPanel = function(){
+	$header = $(this);
+	var $icon = $header.find("i.fi");
+	if($icon.hasClass("fi-expand")){
+		$icon.toggleClass("fi-expand fi-collapse");
+	    $content = $header.next();
+	    $content.slideToggle();
+	}
+}

@@ -1,0 +1,170 @@
+/* &copy; 2015-2017 Cognizant TriZetto Software Group, Inc. All rights reserved. Confidential and Trade Secret Material.  */
+/**
+ * <SCRIPT language="javascript"> Remove "+" to get color-coding, re-add later
+ *
+ * BROWSERIDENTITY.JS : Browser characteristics identifier.
+ *
+ * @author Maha Sengottiyan
+ *
+ */
+
+ /**
+  * Ctor
+  *
+  */
+ function BrowserIdentity()
+ {
+
+    this.winNavigator = window.navigator;
+
+    this.isNetscape = null;
+
+    this.isIExplorer = null;
+
+    this.isFireFox = null;
+
+	this.isSafari = null;
+
+    this.browserName = this.winNavigator.appName;
+
+    this.browserVersion = this.winNavigator.appVersion;
+
+    this.browserPlatform = this.winNavigator.platform;
+
+    this.userAgent = this.winNavigator.userAgent;
+
+
+    /**
+     * Is it Netscape.
+     */
+    this.isNS = function()
+    {
+        if ( this.isNetscape == null )
+        {
+            if ( this.browserName.indexOf("Netscape") != -1 && this.userAgent.indexOf("Firefox") == -1)
+                this.isNetscape = true;
+            else
+                this.isNetscape = false;
+        }
+        return this.isNetscape;
+    }
+
+
+    /**
+     * Is it Internet Explorer
+     */
+    this.isIE = function()
+    {
+        if ( this.isIExplorer == null )
+        {
+            if ( this.browserName.indexOf("Microsoft") != -1 )
+                this.isIExplorer = true;
+            else
+                this.isIExplorer = false;
+        }
+        return this.isIExplorer;
+    }
+
+
+    /**
+     * Is it FireFox
+     */
+    this.isFF = function()
+    {
+        if ( this.isFireFox == null )
+        {
+            if ( this.userAgent.indexOf("Firefox") != -1 )
+                this.isFireFox = true;
+            else
+                this.isFireFox = false;
+        }
+        return this.isFireFox;
+    }
+   /**
+     * Is it Safari
+     */
+    this.isSaf = function()
+    {
+        if ( this.isSafari == null )
+        {
+            if ( this.userAgent.indexOf("Safari") != -1 )
+                this.isSafari = true;
+            else
+                this.isSafari = false;
+        }
+        return this.isSafari;
+    }
+
+    /**
+     * Browser Identity String. ( Combination of name and version. )
+     */
+    this.identity = function()
+    {
+        return this.browserName + " " + this.browserVersion;
+    }
+
+
+    /**
+     * Is it IE 4 and Above.
+     */
+    this.isIE4Above = function()
+    {
+        if ( !this.isIE() )
+            return false;
+        var MSIEIndex = this.browserVersion.indexOf("MSIE");
+        var verStr = this.browserVersion.substring((MSIEIndex+4),20);
+        var ver = parseFloat(verStr);
+        if ( !isNaN(ver) && ver < 4.01 )
+            return false;
+        return true;
+    }
+
+
+    /**
+     * Is it Netscape 7 and Above.
+     */
+    this.isNS7Above = function()
+    {
+        if
+        (
+            (this.userAgent.indexOf("Firefox") >= 0 &&
+            this.userAgent.indexOf("Gecko/200") >= 0) ||
+            (this.userAgent.indexOf("Safari") >= 0 &&
+            this.userAgent.indexOf("Gecko") >= 0)
+        )
+
+        {
+            return true;
+        }
+
+
+        if ( !this.isNS() )
+            return false;
+
+        var idxNS7 = this.userAgent.indexOf("Netscape/7");
+        if ( idxNS7 >= 0 )
+            return true;
+
+        var idxNS8 = this.userAgent.indexOf("Netscape/8");
+        if ( idxNS8 >= 0 )
+            return true;
+
+        return false;
+    }
+    
+    /**
+     * iOS version
+     */
+    
+    this.getIosVersion = function() 
+    {
+        var agent = this.userAgent;
+        var start = agent.indexOf('OS ');
+
+        if (/iphone|ipod|ipad/i.test(agent) && start > -1) {
+            return window.Number(agent.substr(start + 3, 3).replace('_', '.'));
+        } else {
+            return 0;
+        };
+    }
+ }

@@ -1,0 +1,231 @@
+/* &copy; 2015-2017 Cognizant TriZetto Software Group, Inc. All rights reserved. Confidential and Trade Secret Material.  */
+/*
+ * Framework for perfoming ajax calls.
+ * 
+ * To use it you should call ajaxSubmit or ajaxLink on form or link accordingly.
+ * 
+ * Default response handler is singleCopy.
+ * You can pass you custom response handler which should return true if they found required elements
+ * in response or false otherwise (someting goes wrong). 
+ * Examples of this wrong response are login or error pages could be returned to you  in case or session timeout 
+ * or unhandled server error accordingly.
+ * In case of false returned by handler, entire page is replaced with response. So you can see received login/error page.
+ * 
+ * Calls could be configured by config object passed to ajaxSubmit and ajaxLink
+ *  
+ * To see spinner from wait.jsp on your GET requests you have to specify config.containerSelector param for spinner location.
+ * To set custom handler you should specify handler function as config.responseHandler param
+ * To set function that runned after successful perfoming handler - pass this function as config.onReady param. It
+ * can be usefull in case of adding some behavior to loaded elements after using default handler
+ */
+
+//------------------------------------------------------------------------
+//------------------------API---------------------------------------------
+//------------------------------------------------------------------------
+
+/*
+ * Method is used for submitting forms with ajax
+ * Should be called exactly on form
+ * Supports GET and POST submits
+ */
+$.fn.ajaxSubmit = function(config) {
+    var action = this.attr("action");
+    var data = this.serialize();
+    var clone = $.extend({}, config);
+
+    if (this.attr("method").toLowerCase() == "get") {
+        if (action.indexOf("?") > -1) {
+            action = action + "&" + data;
+        } else {
+            action = action + "?" + data;
+        }
+        clone.send = function() {
+            return $.get(action);
+        };
+    } else {
+        clone.send = function() {
+            return $.post(action, data);
+        };
+    }
+    
+    doAjax(clone);
+};
+
+/*
+ * Method is used for ajax loading content by url specified in anchor  
+ * Should be called exactly on anchors
+ */
+$.fn.ajaxLink = function(config) {
+    var url = this.attr("href");
+    var clone = $.extend({}, config);
+    clone.send = function() {
+        return $.get(url);
+    };
+    doAjax(clone);
+};
+
+/*
+ * Wraps default ajax get to use all framework features
+ */
+getByUrl = function(config, url) {
+    var clone = $.extend({}, config);
+    clone.send = function() {
+        return $.get(url);
+    };
+    doAjax(clone);
+};
+
+
+//------------------------------------------------------------------------
+//-------------------Response handlers------------------------------------
+//------------------------------------------------------------------------
+
+
+/*
+ * Method is used for replacing config.containerSelector with config.resultSelector outerHtml from response 
+ */
+function singleCopy($data, config) {
+    var scroll = config.scroll !== false;
+    var $container = $(config.containerSelector);
+    var $spinner = $(config.spinnerSelector);
+    var $response = findInResponse($data, config.resultSelector).eq(0);
+    if ($response.length > 0) {
+        var panelCopyMode = $container.hasClass("panel") && $response.hasClass("panel");
+        //stores panel state (collapsion)
+        if (panelCopyMode) {
+            copyPanelState($container, $response);
+            $container[0].outerHTML = $response[0].outerHTML;
+            $container = $(config.resultSelector);
+        }
+        else {
+            $container.html($response[0].outerHTML);
+        }
+        
+        $spinner.addClass('hidden');          
+        if (config.runScripts !== false) {
+            runScripts($data);
+        }
+        if (scroll) {
+            var padding = parseInt($('body').css('padding-top'));
+            var offset = $container.offset().top;
+            $("html, body").scrollTop(offset - padding);
+        }
+        if(config.resultSelector == "#personalInfo"){
+                
+               checkIsChanged();
+            } 
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+/*
+ * TODO: write comment
+ */
+function serialCopy($data, config) {
+    var isRunScripts = config.runScripts;
+    config.scroll = false;
+    config.runScripts = false;
+    for (var i = 0; i < config.containerList.length; ++i) {
+        config.containerSelector = config.containerList[i];
+        config.resultSelector = config.resultList[i];
+        if (!singleCopy($data, config)) {
+            return false;
+        }
+    }
+    if (isRunScripts !== false) {
+        runScripts($data);
+    }
+    return true;
+}
+
+
+//------------------------------------------------------------------------
+//--------------------Response processing logic---------------------------
+//------------------------------------------------------------------------
+
+var progressSelector = "#progressMessage";
+
+function doAjax(config) {
+    config.responseHandler = config.responseHandler || singleCopy;
+    var $container = $(config.containerSelector);
+    var $spinner = $(config.spinnerSelector);
+    $spinner.removeClass('hidden');
+
+    config.send()
+        .fail(function(data) {
+            if (data.statusCode() >= 400) {
+                replace(data.responseText);
+            }
+        })
+        .done(function(data) {
+            var $data = $(data);
+            if (followScript($data, config)) {
+                if (config.showWait === false) {
+                    return;
+                }
+                var progress = findInResponse($data, progressSelector)[0];
+                $container.empty().append(progress.outerHTML);
+                return;
+            }
+            
+            if (config.responseHandler($data, config)) {
+                config.onReady && config.onReady($data);
+            } 
+            else {
+                replace(data);
+            }
+        });
+}
+
+//------------------------------------------------------------------------
+//-------------------Local helper funcitons-------------------------------
+//------------------------------------------------------------------------
+
+function replace(data) {
+    var newDoc = document.open("text/html", "replace");
+    newDoc.write(data);
+    newDoc.close();
+}
+
+function copyPanelState($source, $dest) {
+    var $sourcePanelBody = $source.children(".panel-body");
+    var $sourcePanelIcon = $source.children(".panel-heading").children(".fi-collapse, .fi-expand");
+    var $destPanelBody = $dest.children(".panel-body");
+    var $destPanelIcon = $dest.children(".panel-heading").children(".fi-collapse, .fi-expand");
+    $destPanelBody.css("display", $sourcePanelBody.css("display"));
+    $destPanelIcon.replaceWith($sourcePanelIcon);
+}
+
+function runScripts(content) {
+    findInResponse(content, 'script').each(function(i, script) {
+        try {
+            $.globalEval(script.text);
+        }
+        catch (e) {
+            e;
+        }
+    });
+}
+
+/*
+ * In case of GET request and wait.jsp specified as intermediate page
+ * this method loads result page specified on wait.jsp
+ */
+function followScript(data, config) {
+    var script = findInResponse(data, "script#goDestination");
+    if (script.length > 0) {
+        var regex = /window\.location\.replace\(['"](.+?)['"]\)/mi;
+        var ref = regex.exec(script.html())[1];
+        script.attr("href", ref);
+        script.ajaxLink(config);
+        return true;
+    }
+    return false;
+}
+
+function findInResponse(response, selector) {
+    return response.filter(selector).add(response.find(selector));
+}

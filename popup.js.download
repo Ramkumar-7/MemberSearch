@@ -1,0 +1,54 @@
+/* &copy; 2015-2017 Cognizant TriZetto Software Group, Inc. All rights reserved. Confidential and Trade Secret Material.  */
+function load(link, div) {
+	$.ajax({
+		url: link,
+		dataType: "text",
+		success: function(data) {
+			$(div).html(data);
+		}				
+	});
+}
+
+$.fn.popMessage = function(message) {
+	var element = this;
+	var container = element.parents('div.modal-body').length?'div.modal-body':'body';
+	var $panel = element.closest('div.panel-primary').find('div.panel-heading.panel-collapsable');
+	if($panel.length>0){
+		openPanel.call($panel);
+	}
+	element.popover({
+		content: function() {
+			return message;
+		},
+		container: container,
+		placement: 'bottom',
+		trigger: 'manual'
+	}).popover('show');
+	element.focus();
+    var padding = parseInt($('body').css('padding-top'));
+    $("html, body").scrollTop(element.offset().top - padding);
+	element.blur(function() {
+		element.popover('destroy');
+		element.blur(function() {});
+	});
+}
+
+$.fn.popMessageWithContainerId = function(containerId, message) {
+	var element = this;
+	var container = containerId;
+	element.popover({
+		content: function() {
+			return message;
+		},
+		container: container,
+		placement: 'bottom',
+		trigger: 'manual'
+	}).popover('show');
+	element.focus();
+    var padding = parseInt($('body').css('padding-top'));
+    $("html, body").scrollTop(element.offset().top - padding);
+	element.blur(function() {
+		element.popover('destroy');
+		element.blur(function() {});
+	});
+}

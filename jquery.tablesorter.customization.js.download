@@ -1,0 +1,48 @@
+//custom parser for date range
+var rangeDatePattern = /(\d{2})\/(\d{2})\/(\d{4})(-(\d{2})\/(\d{2})\/(\d{4}))*/;
+var trimPattern = /\n|\s+/g;
+
+$.tablesorter.addParser({
+    id: "date-range",
+    is : function(s) {
+        return false;
+    },
+    format : function(s) {
+        s = s.replace(trimPattern, "");
+        //reverses date from MM/dd/YYYY or MM/dd/YYYY-MM/dd/YYYY to YYYYMMdd or YYYYMMddYYYYMMdd to be sorted as usual text
+        var parsedDate = s.match(rangeDatePattern);
+        var result="";
+        if(parsedDate!=null && parsedDate.length>2){
+            result = parsedDate[3] + parsedDate[1] + parsedDate[2];
+            if (parsedDate[4] != undefined) {
+                result = result + parsedDate[7] + parsedDate[5]
+                        + parsedDate[6];
+            }
+        }
+        return result;
+        
+    },
+    type : 'text'
+});
+
+//custom parser for benefit type
+$.tablesorter.addParser({
+    id : 'benefitType',
+    is : function(s) {
+        return false;
+    },
+    format : function(s) {
+        // adds priority to benefit type text: at first Medical, then Dental, then Vision, then others in alphabetical order
+        if (/Medical/i.test(s)) {
+            s = "0";
+        } else if (/Dental/i.test(s)) {
+            s = "1";
+        } else if (/Vision/i.test(s)) {
+            s = "2";
+        } else {
+            s = "3" + s;
+        }
+        return s;
+    },
+    type : 'text'
+});

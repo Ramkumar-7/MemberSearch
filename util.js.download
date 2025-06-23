@@ -1,0 +1,43 @@
+/* &copy; 2015-2017 Cognizant TriZetto Software Group, Inc. All rights reserved. Confidential and Trade Secret Material.  */
+function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) {
+            return sParameterName[1];
+        }
+    }
+
+    return null;
+}
+
+// reset all fields marked as resettable
+function reset(button){
+    $(button).closest("form").find(".resettable").each(function(){
+        var $this = $(this);
+        var defaultValue=$this.data("default-value")||"";
+        if($this.hasClass("dpicker")){
+            $this.datepicker("setDate", defaultValue);
+        }
+        else if ($this.is("[type=checkbox]")) {
+            this.checked = defaultValue;
+        }
+        else {
+            $this.val(defaultValue);
+        }
+    });
+    return false;
+}
+
+function resetCallout(){
+    return reset(this);
+}
+
+// Hack to make iOS 7 word-wrap options
+function wordWrapOptions($selects){
+    var browser = new BrowserIdentity();
+    if (browser.getIosVersion() >= 7) {
+    	$selects.append('<optgroup label=""></optgroup>');
+    }
+}

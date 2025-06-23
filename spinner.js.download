@@ -1,0 +1,4 @@
+/* &copy; 2015-2017 Cognizant TriZetto Software Group, Inc. All rights reserved. Confidential and Trade Secret Material.  */
+function showSpinner(form) {
+	$(form).find("[type=submit] .fi-loading").removeClass("hidden");
+}

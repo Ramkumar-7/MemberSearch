@@ -1,0 +1,144 @@
+/* &copy; 2015-2017 Cognizant TriZetto Software Group, Inc. All rights reserved. Confidential and Trade Secret Material.  */
+$.fn.dynamicTable = function(tableConfig) {
+	var tableName = this.attr('id');
+	this.on('click', '.dynamic-add-btn', function() {
+		addRow(tableName, this, tableConfig);
+	});
+	this.on('click', '.dynamic-delete-btn', function() {
+		deleteRow(tableName, this);
+	});
+}
+
+$.fn.addColumns = function(mapColumns) {
+	var $table = $(this);
+	//loop by all which should be added
+	$.map(mapColumns, function(value, key) {
+		// add column title by cloning prev th
+		var $titleTd = $table.find('thead >tr >th').eq(-2);
+		var $cloneTitleTd = $titleTd.clone();
+		$cloneTitleTd.find('label').text(key)
+		$titleTd.after($cloneTitleTd);
+		//add td by cloning prev td
+		$table.find('tbody >tr').each(function() {
+			var $td = $(this).find('td').eq(-2);
+			var index = $(this).index() + 1;
+			var $cloneTd = $td.clone();
+			$input=$cloneTd.find('input')
+			$input.attr('name', value + index);
+			$input.attr('id', value + index);
+			// currency class for input is hardcoded 
+			$input.addClass('currency');
+			$td.after($cloneTd);
+		});
+	});
+}
+
+$.fn.deleteColumns = function(mapColumns){
+	var $table = $(this);
+	//loop by all which should be deleted
+	$.map( mapColumns, function( value, key ) {
+		var index=-1;
+		//find index by key
+		$table.find('thead >tr >th label').each(function(){
+			if($(this).text() == key){
+				index = $(this).closest('th').index();
+			}
+		});
+		//delete column
+		if(index>-1){
+			$table.find("th:eq(" + index +")").remove();
+			$table.find('tbody >tr').each(function(){
+				$(this).find("td:eq(" + index +")").remove();
+			});
+		}
+	});
+}
+
+function addRow(tableName, button, configTable) {
+    var $tr = $(button).closest('tbody').find('tr:last');
+	var lastTrIndex = $tr.closest('table').find('tbody >tr').length;
+	if(lastTrIndex < configTable.maxSize){
+		var $clone = $tr.clone();
+		//disable delete button if you cloned the first tr
+		$clone.find('.dynamic-delete-btn').removeAttr('disabled');
+		//increase id of elements in cloned tr
+		$clone.find('input, select, label, span').each(function() {
+		    var $this = $(this);
+		    //name and id may differ, e.g. in case of radio button so they are modified separately
+			var id = $this.attr('id') || null;
+			var name = $this.attr('name') || id;			
+			if (id) {
+				var idPrefix = getPrefix(id, lastTrIndex);
+				var namePrefix = getPrefix(name, lastTrIndex);
+				$this.attr('id', idPrefix + (lastTrIndex + 1));
+				$this.attr('name', namePrefix + (lastTrIndex + 1));
+				// use empty string if default value of element isn't presented in map
+				var defaultVal = "";
+				if (configTable.mapDefaultValues) {
+					defaultVal = configTable.mapDefaultValues[idPrefix];
+				}
+				if($this.is("label") || $(this).is("span")){
+				    $this.text(defaultVal); 
+				} else if ($this.attr("type") == "radio") {
+				    $this.prop('checked', defaultVal);
+				} else if ($this.is("input") && $this.is("[data-copy]")) {
+				    // just keep value
+				} else if ($this.is("input") && $this.is("[data-index]")) {
+                    $this.val(lastTrIndex + 1);
+                } else {
+				    $this.val(defaultVal);
+				}
+			}
+		});
+		$clone.find("td:first >label").text(lastTrIndex + 1);
+		if (lastTrIndex == 1) {
+			$tr.find('.dynamic-delete-btn').removeAttr('disabled');
+		}
+		//add cloned tr to table
+		$tr.closest('table').append($clone);
+		//focus on the first column in added row
+		$("#" + tableName).find('tbody >tr:last input:not(:hidden):first').focus();
+	}
+	$(".dpicker").datepicker();
+}
+
+function deleteRow(tableName, button) {
+	var $tr = $(button).closest('tr');
+	var deletedIndex = parseInt($tr.find('td:first >label').text());
+	//loop by all trs to decrement ids and names for trs after 
+	$tr.closest('table').find('tbody >tr').each(function() {
+		var index = $(this).index() + 1;
+		if (index > deletedIndex) {
+			$(this).find('input, select, label, span').each(function() {
+				$this = $(this);
+			  //name and id may differ, e.g. in case of radio button so they are modified separately
+				var id = $this.attr('id') || null;
+				var name = $this.attr('name') || id;
+				if (id) {
+				    var idPrefix = getPrefix(id, index);
+	                var namePrefix = getPrefix(name, index);
+	                $this.attr('id', idPrefix + (index - 1));
+	                $this.attr('name', namePrefix + (index - 1));
+					if($this.is("input") && $this.is("[data-index]")){
+						$this.val(index-1);
+					}
+				}
+			});
+			$(this).find("td:first >label").text(index - 1);
+		}
+	});
+	$tr.remove();
+	// disable delete button if table has only one row
+	if ($("#" + tableName).find('tbody >tr').length == 1) {
+		$("#" + tableName).find('tbody >tr:first .dynamic-delete-btn').attr(
+				'disabled', 'disabled');
+	}
+}
+
+function getPrefix(id, index) {
+	if (index > 9) {
+		return id.substr(0, (id.length - 2));
+	} else {
+		return id.substr(0, (id.length - 1));
+	}
+}

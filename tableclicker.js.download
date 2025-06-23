@@ -1,0 +1,54 @@
+/* &copy; 2015-2017 Cognizant TriZetto Software Group, Inc. All rights reserved. Confidential and Trade Secret Material.  */
+$.fn.tableclicker = function() {
+	var rowTrigger = this.data("trigger") || "a";
+	var $tr = this.find('tbody tr:has(' + rowTrigger + ')');
+	$tr.addClass("clickable");
+	$tr.children().click(function(event) {
+		var $cell = $(this);
+		var $tr = $cell.parent();
+		var cellTrigger = $cell.data("trigger") || rowTrigger;
+		var $trigger = $cell.find(cellTrigger);
+		if ($trigger.size() == 0) {
+			$trigger = $tr.find(cellTrigger);
+		}
+		if ($trigger.size() == 0) {
+			$trigger = $tr.find(rowTrigger);
+		}
+		if (!clickedDirectly(event, $trigger[0])) {
+			$trigger[0].click();	
+		}
+	});
+};
+
+function clickedDirectly(event, trigger) {
+	return event.target == trigger || $.contains(trigger, event.target);
+}
+
+
+
+
+
+/*
+ * Methods allows to make all rows in table clickable
+ * customHandler - passed function that receives clicked row
+ * to make input control inside cell working - add data-trigger attribute to cell with control tag name as value 
+ */
+$.fn.rowsClickerWithTriggersNoLinks = function(customHandler) {
+    var $tr = this.find('tbody tr');
+    $tr.addClass("clickable");
+    $tr.find("a").click(function(e) {
+        e.preventDefault();
+    });
+    $tr.children().click(function() {
+        var $cell = $(this);
+        var cellTrigger = $cell.data("trigger");
+
+        var trigger = $cell.find(cellTrigger);
+
+        if (trigger.size() != 0) {
+            trigger[0].click();
+        } else {
+            customHandler($cell.parent());
+        }
+    });
+};
