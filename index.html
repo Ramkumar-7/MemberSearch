@@ -1,156 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Enter Data</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background-color: #fff;
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 425px;
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        input[type="text"], input[type="date"] {
-            width: 95%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        input[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        .required::after {
-            content: " *";
-            color: red;
-        }
-        .status {
-            margin-top: 20px;
-            padding: 10px;
-            border-radius: 4px;
-            font-weight: bold;
-            text-align: center;
-        }
-        .active {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .inactive {
-            background-color: #f44336;
-            color: white;
-        }
-        .not-found {
-            background-color: #FF9800;
-            color: black;
-        }
-		.multiple-members {
-            background-color: #FFFF00;
-            color: black;
-        }
-        .other {
-            background-color: #FFC107;
-            color: red;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>New Registration - Farm Bureau Health Plans</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f2f2f2;
+    }
+    header, footer {
+      background-color: #ffffff;
+      padding: 1em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+    }
+    nav a {
+      margin-left: 1em;
+      text-decoration: none;
+      color: #0077cc;
+    }
+    main {
+      max-width: 800px;
+      margin: 2em auto;
+      background-color: #fff;
+      padding: 2em;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #003366;
+    }
+    .step-indicator {
+      color: #fff;
+      background-color: #003366;
+      padding: 0.5em 1em;
+      display: inline-block;
+      border-radius: 3px;
+      margin-bottom: 1em;
+    }
+    .option-box {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 1em;
+      margin-top: 1em;
+    }
+    .buttons {
+      margin-top: 2em;
+    }
+    .btn {
+      padding: 0.7em 1.5em;
+      font-size: 1em;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background-color: #0077cc;
+      color: white;
+    }
+    .btn-secondary {
+      background-color: #cccccc;
+      color: #333;
+      margin-left: 1em;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      color: #777;
+      border-top: 1px solid #ccc;
+      margin-top: 2em;
+    }
+    footer a {
+      margin: 0 0.5em;
+      color: #0077cc;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Enter the details</h2>
-        <form id="dataForm">
-            <label>Subscriber ID (optional)</label>
-            <input type="text" id="subscriberId" minlength="9" maxlength="9"><br>
-            <label class="required">First Name</label>
-            <input type="text" id="firstName" required minlength="3"><br>
-            <label class="required">Last Name</label>
-            <input type="text" id="lastName" required minlength="3"><br>
-            <label class="required">Date Of Birth</label>
-            <input type="date" id="dob" required><br>
-            <input type="submit" value="Submit">
-        </form>
-        <div id="statusMessage" class="status" style="display:none;"></div>
+  <header>
+    <div>Farm Bureau Health Plans</div>
+    <nav>
+      <a href="#">Log in</a>
+      <a href="#">Customer Service</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="step-indicator">Step 1</div>
+    <h1>New Registration</h1>
+    <p>Select the registration that correctly identifies you:</p>
+    <div class="option-box">
+      <strong>Member</strong>
     </div>
+    <div class="buttons">
+      <button class="btn btn-primary">Continue</button>
+      <button class="btn btn-secondary">Cancel</button>
+    </div>
+  </main>
 
-    <script>
-        document.getElementById("dataForm").addEventListener("submit", async function(event) {
-            event.preventDefault(); // Prevent the form from refreshing the page
-
-            const subscriberId = document.getElementById("subscriberId").value;
-            const firstName = document.getElementById("firstName").value;
-            const lastName = document.getElementById("lastName").value;
-            const dobInput = document.getElementById("dob").value;
-
-            let dob = "";
-            if (dobInput) {
-                const dobParts = dobInput.split("-");
-                if (dobParts.length === 3) {
-                    dob = `${dobParts[1]}/${dobParts[2]}/${dobParts[0]}`;
-                }
-            }
-			
-			
-			
-			const apiUrl = `https://api-np.fbhp.com/fbhpweb-member-facets-eapi-uat/api/member/status?subscriberId=${subscriberId}&fname=${firstName}&lname=${lastName}&dob=${dob}`;
-    
-			try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-
-			if (!response.ok) {
-				throw new Error("Network response was not ok");
-        }
-
-			const data = await response.json();
-			const eligibilityStatus = data.payload?.[0]?.eligibilityStatus;
-
-			if (!eligibilityStatus) {
-				throw new Error("EligibilityStatus not found in the response.");
-        }
-           
-                const statusMessage = document.getElementById("statusMessage");
-                statusMessage.style.display = "block";
-                statusMessage.textContent = `Eligibility Status: ${eligibilityStatus}`;
-
-                statusMessage.className = "status";
-                if (eligibilityStatus === "Active") {
-                    statusMessage.classList.add("active");
-                } else if (eligibilityStatus === "Inactive") {
-                    statusMessage.classList.add("inactive");
-                } else if (eligibilityStatus === "Member not found") {
-                    statusMessage.classList.add("not-found");
-				} else if (eligibilityStatus === "Multiple members available in the filter criteria, Provide subscriber Id for the exact result") {
-                    statusMessage.classList.add("multiple-members");
-                } else {
-                    statusMessage.classList.add("other");
-                }
-            } catch (error) {
-                alert("An error occurred while fetching the data. Please try again.");
-                console.error("Error:", error);
-            }
-        });
-    </script>
+  <footer>
+    &copy; 2015-2017 Cognizant TriZetto Software Group, Inc.
+    <br>
+    <a href="#">Terms of Use</a> |
+    <a href="#">Privacy</a>
+  </footer>
 </body>
 </html>
