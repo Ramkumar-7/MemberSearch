@@ -2,20 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>New Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       background-color: #f2f2f2;
     }
+
     .top-left-logo {
       position: absolute;
       top: 20px;
       left: 20px;
       height: 50px;
     }
+
     .header-line {
       position: absolute;
       top: 80px;
@@ -24,47 +26,60 @@
       height: 40px;
       background-color: #003366;
     }
-    .steps {
-      list-style-type: none;
+
+    .step-container {
       display: flex;
-      margin: 140px 20px 0 20px;
-      padding: 0;
-      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 140px;
+      gap: 10px;
     }
-    .steps li {
-      padding: 10px 20px;
+
+    .step {
       background-color: #ccc;
-      border-radius: 5px;
-      color: #333;
+      color: #000;
+      padding: 12px 25px;
       font-weight: bold;
+      clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%);
     }
-    .steps li.active {
+
+    .step.active {
       background-color: #003366;
       color: white;
     }
+
+    .step:last-child {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+
     main {
       max-width: 700px;
-      margin: 40px auto;
+      margin: 50px auto;
       background-color: #fff;
       padding: 2em;
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
+
     h1 {
       color: #003366;
+      margin-top: 0;
     }
+
     .link-box {
       border: 1px solid #ccc;
       padding: 1em;
       border-radius: 4px;
       margin-top: 1em;
     }
+
     .link-box a {
       text-decoration: none;
       font-weight: bold;
       color: #0077cc;
       font-size: 1.1em;
     }
+
     .cancel-button {
       margin-top: 2em;
       background-color: #cccccc;
@@ -80,17 +95,17 @@
   <img src="header_active-fit.png" alt="Top Left Logo" class="top-left-logo" />
   <div class="header-line"></div>
 
-  <ul class="steps">
-    <li class="active">Step 1</li>
-    <li>Step 2</li>
-    <li>Step 3</li>
-  </ul>
+  <div class="step-container">
+    <div class="step active">Step 1</div>
+    <div class="step">Step 2</div>
+    <div class="step">Step 3</div>
+  </div>
 
   <main>
     <h1>New Registration</h1>
     <p>Select the registration that correctly identifies you:</p>
     <div class="link-box">
-      <a href="https://ramkumar-7.github.io/MemberSearchReg2/">Member</a>
+      <a href="https://example.com/member-registration">Member</a>
     </div>
     <button class="cancel-button">Cancel</button>
   </main>
