@@ -5,48 +5,44 @@
   <title>New Registration</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    html, body {
+      height: 100vh;
+      overflow: hidden;
       margin: 0;
+      font-family: Arial, sans-serif;
       background-color: #f2f2f2;
     }
 
     .top-left-logo {
       position: absolute;
-      top: 20px;
-      left: 20px;
-      height: 50px;
-    }
-    .top-center-logo {
-      
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 10px;
+      left: 10px;
+      height: 40px;
     }
 
-    .header-line {
+    .top-center-logo {
       position: absolute;
-      top: 80px;
-      left: 0;
-      width: 100%;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
       height: 40px;
-      background-color: #003366;
     }
 
     .step-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top: 140px;
-      gap: 10px;
+      margin-top: 60px;
+      gap: 6px;
     }
 
     .step {
       background-color: #ccc;
       color: #000;
-      padding: 12px 25px;
+      padding: 10px 18px;
       font-weight: bold;
-      clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%);
+      font-size: 0.9em;
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
     }
 
     .step.active {
@@ -59,10 +55,10 @@
     }
 
     main {
-      max-width: 700px;
-      margin: 50px auto;
+      max-width: 640px;
+      margin: 10px auto;
       background-color: #fff;
-      padding: 2em;
+      padding: 1em;
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
@@ -70,68 +66,72 @@
     h1 {
       color: #003366;
       margin-top: 0;
+      font-size: 1.2em;
     }
 
     .link-box {
       border: 1px solid #ccc;
-      padding: 1em;
+      padding: 0.8em;
       border-radius: 4px;
-      margin-top: 1em;
+      margin-top: 0.8em;
     }
 
     .link-box a {
       text-decoration: none;
       font-weight: bold;
       color: #0077cc;
-      font-size: 1.1em;
+      font-size: 1em;
+      transition: color 0.3s ease;
+    }
+
+    .link-box a:hover {
+      color: #005999;
+      text-decoration: underline;
     }
 
     .cancel-button {
-      margin-top: 2em;
+      margin-top: 1em;
       background-color: #cccccc;
       color: #333;
       border: none;
-      padding: 0.7em 1.5em;
+      padding: 0.6em 1.2em;
       border-radius: 3px;
       cursor: pointer;
+      font-size: 0.9em;
     }
+
     .footer-note {
-  position: fixed;
-  bottom: 10px;
-  right: 15px;
-  font-size: 0.8em;
-  color: #666;
-  font-family: Arial, sans-serif;
-}
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #003366;
-  padding: 10px 30px;
-  position: relative;
-}
-.header-img.center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
+      position: absolute;
+      bottom: 5px;
+      right: 10px;
+      font-size: 0.7em;
+      color: #666;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #003366;
+      padding: 10px 30px;
+      position: relative;
+    }
+
+    .header-img.center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
   </style>
 </head>
 <body>
   <img src="header_active-fit.png" alt="Top Left Logo" class="top-left-logo" />
   <img src="Activeandfit_4.png" alt="Top center Logo" class="top-center-logo" />
-<!--   <div class="header-line"></div>
-  <header class="page-header">
-<!--   <img src="left-logo.png" alt="Left Logo" class="header-img left" /> -->
-<!--   <img src="Activeandfit_1.png" alt="Center Logo" class="header-img center" /> -->
-<!--   <img src="right-logo.png" alt="Right Logo" class="header-img right" /> -->
-  </header> -->
 
   <div class="step-container">
     <div class="step active">Step 1</div>
     <div class="step">Step 2</div>
-    <div class="step">Step 3</div>
+<!--     <div class="step">Step 3</div> -->
   </div>
 
   <main>
@@ -142,8 +142,9 @@
     </div>
     <button class="cancel-button">Cancel</button>
   </main>
+
   <div class="footer-note">
-  © 2015-2017 Cognizant TriZetto Software Group, Inc. All rights reserved. Confidential and Trade Secret Material.
-</div>
+    © 2015-2017 Cognizant TriZetto Software Group, Inc. All rights reserved. Confidential and Trade Secret Material.
+  </div>
 </body>
 </html>
