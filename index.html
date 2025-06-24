@@ -97,11 +97,29 @@
   color: #666;
   font-family: Arial, sans-serif;
 }
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #003366;
+  padding: 10px 30px;
+  position: relative;
+}
+.header-img.center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
   </style>
 </head>
 <body>
   <img src="header_active-fit.png" alt="Top Left Logo" class="top-left-logo" />
   <div class="header-line"></div>
+  <header class="page-header">
+<!--   <img src="left-logo.png" alt="Left Logo" class="header-img left" /> -->
+  <img src="Activeandfit.png" alt="Center Logo" class="header-img center" />
+<!--   <img src="right-logo.png" alt="Right Logo" class="header-img right" /> -->
+  </header>
 
   <div class="step-container">
     <div class="step active">Step 1</div>
