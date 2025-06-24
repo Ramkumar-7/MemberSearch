@@ -1,50 +1,98 @@
 <!DOCTYPE html>
-<!-- saved from url=(0082)https://activeandfit.fbhealthplans.com/tzg/cws/registration/commonRegistration.jsp -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<html>
+<html lang="en">
 <head>
-    
-    <style>
-        
-	.top-left-logo {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            height: 50px; /* Adjust height as needed */
-        }
-	.header-line {
-            position: absolute;
-            top: 80px; /* Adjust based on logo height */
-            left: 0;
-            width: 100%;
-            height: 40px;
-            background-color: #003366;
-            border: none;
-            margin: 0;
-            z-index: 1;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>New Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f2f2f2;
+    }
+    .top-left-logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      height: 50px;
+    }
+    .header-line {
+      position: absolute;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background-color: #003366;
+    }
+    .steps {
+      list-style-type: none;
+      display: flex;
+      margin: 140px 20px 0 20px;
+      padding: 0;
+      gap: 20px;
+    }
+    .steps li {
+      padding: 10px 20px;
+      background-color: #ccc;
+      border-radius: 5px;
+      color: #333;
+      font-weight: bold;
+    }
+    .steps li.active {
+      background-color: #003366;
+      color: white;
+    }
+    main {
+      max-width: 700px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 2em;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #003366;
+    }
+    .link-box {
+      border: 1px solid #ccc;
+      padding: 1em;
+      border-radius: 4px;
+      margin-top: 1em;
+    }
+    .link-box a {
+      text-decoration: none;
+      font-weight: bold;
+      color: #0077cc;
+      font-size: 1.1em;
+    }
+    .cancel-button {
+      margin-top: 2em;
+      background-color: #cccccc;
+      color: #333;
+      border: none;
+      padding: 0.7em 1.5em;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <img src="header_active-fit.png" alt="Top Left Logo" class="top-left-logo" />
-    <hr class="header-line" />
-    
-<ul class="steps">
-    
-        
-        <li class="active">Step 1</li>
-    
-        
-        <li class="">Step 2</li>
-    
-        
-        <li class="">Step 3</li>
-    
-</ul>
-    
+  <img src="header_active-fit.png" alt="Top Left Logo" class="top-left-logo" />
+  <div class="header-line"></div>
+
+  <ul class="steps">
+    <li class="active">Step 1</li>
+    <li>Step 2</li>
+    <li>Step 3</li>
+  </ul>
+
+  <main>
+    <h1>New Registration</h1>
+    <p>Select the registration that correctly identifies you:</p>
+    <div class="link-box">
+      <a href="https://ramkumar-7.github.io/MemberSearchReg2/">Member</a>
+    </div>
+    <button class="cancel-button">Cancel</button>
+  </main>
 </body>
 </html>
