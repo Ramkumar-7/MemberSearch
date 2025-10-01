@@ -7,10 +7,26 @@
   <style>
     html, body {
       height: 100vh;
-      overflow: hidden;
       margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
+      background: url('your-background-image.jpeg') no-repeat center center;
+      background-size: cover;
+      color: white;
+      position: relative;
+    }
+
+    .background-overlay::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 0;
+    }
+
+    .background-overlay > * {
+      position: relative;
+      z-index: 1;
     }
 
     .top-left-logo {
@@ -18,6 +34,7 @@
       top: 10px;
       left: 10px;
       height: 40px;
+      z-index: 2;
     }
 
     .top-center-logo {
@@ -26,6 +43,7 @@
       left: 50%;
       transform: translateX(-50%);
       height: 40px;
+      z-index: 2;
     }
 
     .step-container {
@@ -56,17 +74,23 @@
 
     main {
       max-width: 640px;
-      margin: 10px auto;
-      background-color: #fff;
-      padding: 1em;
+      margin: 20px auto;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 1.5em;
       border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      color: #000;
     }
 
     h1 {
       color: #003366;
       margin-top: 0;
-      font-size: 1.2em;
+      font-size: 1.4em;
+    }
+
+    p {
+      font-size: 1em;
+      line-height: 1.6;
     }
 
     .link-box {
@@ -74,6 +98,7 @@
       padding: 0.8em;
       border-radius: 4px;
       margin-top: 0.8em;
+      background-color: #f9f9f9;
     }
 
     .link-box a {
@@ -87,6 +112,21 @@
     .link-box a:hover {
       color: #005999;
       text-decoration: underline;
+    }
+
+    .cta-button {
+      background-color: #0077cc;
+      color: white;
+      padding: 0.6em 1.2em;
+      border-radius: 4px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 1em;
+      font-weight: bold;
+    }
+
+    .cta-button:hover {
+      background-color: #005999;
     }
 
     .cancel-button {
@@ -105,46 +145,35 @@
       bottom: 5px;
       right: 10px;
       font-size: 0.7em;
-      color: #666;
-    }
-
-    .page-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #003366;
-      padding: 10px 30px;
-      position: relative;
-    }
-
-    .header-img.center {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
+      color: #ccc;
+      z-index: 2;
     }
   </style>
 </head>
 <body>
-  <img src="header_active-fit.png" alt="Top Left Logo" class="top-left-logo" />
-  <img src="Activeandfit_4.png" alt="Top center Logo" class="top-center-logo" />
+  <div class="background-overlay">
+    <img src="header_active-fit.png" alt="Top Left Logo" class="top-left-logo" />
+    <img src="Activeandfit_4.png" alt="Top center Logo" class="top-center-logo" />
 
-  <div class="step-container">
-    <div class="step active">Step 1</div>
-    <div class="step">Step 2</div>
-<!--     <div class="step">Step 3</div> -->
-  </div>
-
-  <main>
-    <h1>New Registration</h1>
-    <p>Select the registration that correctly identifies you:</p>
-    <div class="link-box">
-      <a href="https://ramkumar-7.github.io/MemberSearchReg2/">Member</a>
+    <div class="step-container">
+      <div class="step active">Step 1</div>
+      <div class="step">Step 2</div>
     </div>
-    <button class="cancel-button">Cancel</button>
-  </main>
 
-  <div class="footer-note">
-    © 2015-2017 Cognizant TriZetto Software Group, Inc. All rights reserved. Confidential and Trade Secret Material.
+    <main>
+      <h1>Congratulations on taking the next step towards a healthier you!</h1>
+      <p>
+        FBHP Members eighteen (18) years of age and older may choose to participate in the Active&Fit Direct™ comprehensive fitness membership program. An enrollment fee, monthly fee, and applicable taxes give members access to a nationwide network of fitness centers and on-demand workout videos.
+      </p>
+      <div class="link-box">
+        <a href="https://ramkumar-7.github.io/MemberSearchReg2/" class="cta-button">Confirm FBHP Member Eligibility</a>
+      </div>
+      <button class="cancel-button">Cancel</button>
+    </main>
+
+    <div class="footer-note">
+      © 2015-2017 Cognizant TriZetto Software Group, Inc. All rights reserved. Confidential and Trade Secret Material.
+    </div>
   </div>
 </body>
 </html>
