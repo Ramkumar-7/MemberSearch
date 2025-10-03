@@ -8,6 +8,7 @@
     html, body {
       height: 100vh;
       margin: 0;
+      overflow: hidden; /* Prevent scrolling */
       font-family: Arial, sans-serif;
       background-image: url('your-image.jpg'); /* Replace with actual image path */
       background-size: cover;
@@ -68,7 +69,7 @@
 
     main {
       position: absolute;
-      bottom: 100px; /* Adjusted position */
+      top: 120px; /* Moved higher */
       right: 30px;
       width: 320px;
       background-color: #fff;
@@ -144,6 +145,10 @@
     }
 
     @media (max-width: 480px) {
+      html, body {
+        overflow: auto; /* Allow scroll on small screens */
+      }
+
       .step {
         font-size: 0.8em;
         padding: 8px 12px;
