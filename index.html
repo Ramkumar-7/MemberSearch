@@ -131,10 +131,10 @@
       top: 64%;
       left: 30px;
       transform: translateY(-50%);
-      max-width: 300px;
-      font-size: 1.15em;
+      width: 480px;
+      font-size: 0.95em;
       color: white;
-      line-height: 2.2;
+      line-height: 1.6;
       padding-bottom: 100px;
     }
 
@@ -167,9 +167,8 @@
       .intro-paragraph {
         position: static;
         margin: 1em;
+        width: auto;
         padding-bottom: 0;
-        font-size: 1em;
-        line-height: 1.8;
       }
 
       main {
@@ -208,7 +207,7 @@
     <div class="link-box">
       <a href="https://ramkumar-7.github.io/MemberSearchReg2/">Member</a>
     </div>
-    <button class="cancel-button" onclick="handleCancel()">Cancel</button>
+    <button class="cancel-button" onclick="handleCancel()" aria-label="Cancel registration and exit page">Cancel</button>
   </main>
 
   <img src="Activeandfit_4.png" alt="Active&Fit Logo" class="bottom-left-logo" />
@@ -220,10 +219,7 @@
   <script>
     function handleCancel() {
       if (confirm("Are you sure you want to exit this page?")) {
-        window.open('', '_self').close();
-        setTimeout(() => {
-          window.location.href = "about:blank";
-        }, 100);
+        window.location.href = "about:blank";
       }
     }
   </script>
