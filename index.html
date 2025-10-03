@@ -126,14 +126,14 @@
 
     .intro-paragraph {
       position: absolute;
-      top: 60%;
+      top: 48%;
       left: 30px;
       transform: translateY(-50%);
       max-width: 320px;
       font-size: 1em;
       color: white;
-      line-height: 1.6; /* increased for better readability */
-      padding-bottom: 100px; /* prevents overlap with bottom logo */
+      line-height: 1.8;
+      padding-bottom: 40px;
     }
 
     .bottom-left-logo {
@@ -178,12 +178,11 @@
 <body>
   <header>
     <img src="header_active-fit.png" alt="Top Left Logo" class="top-left-logo" />
-    
   </header>
 
   <div class="intro-paragraph">
     <p>
-      Congratulations on taking the next step towards a healthier you!<br>
+      Congratulations on taking the next step towards a healthier you!<br><br>
       FBHP Members eighteen (18) years of age and older may choose to participate in the Active&Fit Direct™ comprehensive fitness membership program. Active&Fit Direct is a product provided by American Specialty Health Fitness, Inc. An enrollment fee, monthly fee and applicable taxes gives members access to the Active&Fit Direct network of fitness centers nationwide, and on-demand workout videos to stay active at home or on-the-go.<br>
       To sign up for Active&Fit Direct, please confirm your FBHP Member Eligibility.
     </p>
@@ -211,8 +210,11 @@
 
   <script>
     function handleCancel() {
-      if (confirm("Are you sure you want to close this page?")) {
-        window.open('', '_self').close(); // fallback for most browsers
+      if (confirm("Are you sure you want to exit this page?")) {
+        window.open('', '_self').close();
+        setTimeout(() => {
+          window.location.href = "about:blank";
+        }, 100);
       }
     }
   </script>
