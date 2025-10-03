@@ -67,8 +67,10 @@
     }
 
     main {
-      max-width: 640px;
-      margin: 10px auto;
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      width: 320px;
       background-color: #fff;
       padding: 1em;
       border-radius: 6px;
@@ -138,7 +140,7 @@
       position: absolute;
       bottom: 20px;
       left: 20px;
-      height: 60px; /* Bigger size */
+      height: 60px; /* Enlarged logo */
     }
 
     @media (max-width: 480px) {
@@ -154,6 +156,12 @@
       .intro-paragraph {
         position: static;
         margin: 1em;
+      }
+
+      main {
+        position: static;
+        margin: 1em auto;
+        width: auto;
       }
 
       .bottom-left-logo {
