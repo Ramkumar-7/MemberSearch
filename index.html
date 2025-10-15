@@ -5,16 +5,18 @@
   <title>New Registration</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
     html, body {
-      height: 100vh;
       margin: 0;
-      overflow: hidden;
       font-family: Arial, sans-serif;
       background-image: url('activefit_bg.png');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      position: relative;
+      min-height: 100vh;
     }
 
     body::before {
@@ -47,7 +49,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top: 60px;
+      margin-top: 100px;
       gap: 6px;
     }
 
@@ -69,12 +71,29 @@
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
 
+    .content-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 40px 20px;
+    }
+
+    .intro-paragraph {
+      width: 100%;
+      max-width: 480px;
+      font-size: 0.95em;
+      color: white;
+      line-height: 1.6;
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 1em;
+      border-radius: 6px;
+    }
+
     main {
-      position: absolute;
-      top: 140px;
-      right: 42%;
-      transform: translateX(50%);
-      width: 360px;
+      width: 100%;
+      max-width: 360px;
       background-color: #fff;
       padding: 1.2em;
       border-radius: 6px;
@@ -119,23 +138,10 @@
     }
 
     .footer-note {
-      position: absolute;
-      bottom: 5px;
-      right: 10px;
+      text-align: center;
       font-size: 0.7em;
       color: #666;
-    }
-
-    .intro-paragraph {
-      position: absolute;
-      top: 64%;
-      left: 30px;
-      transform: translateY(-50%);
-      width: 480px;
-      font-size: 0.95em;
-      color: white;
-      line-height: 1.6;
-      padding-bottom: 100px;
+      margin: 20px;
     }
 
     .bottom-left-logo {
@@ -145,14 +151,15 @@
       height: 80px;
     }
 
-    @media (max-width: 480px) {
-      html, body {
-        overflow: auto;
+    @media (max-width: 768px) {
+      .content-wrapper {
+        flex-direction: column;
+        align-items: center;
       }
 
-      .step {
-        font-size: 0.8em;
-        padding: 8px 12px;
+      .intro-paragraph,
+      main {
+        width: 90%;
       }
 
       .top-left-logo {
@@ -164,21 +171,13 @@
         height: 30px;
       }
 
-      .intro-paragraph {
-        position: static;
-        margin: 1em;
-        width: auto;
-        padding-bottom: 0;
-      }
-
-      main {
-        position: static;
-        margin: 1em auto;
-        width: auto;
-      }
-
       .bottom-left-logo {
         height: 40px;
+      }
+
+      .step {
+        font-size: 0.8em;
+        padding: 8px 12px;
       }
     }
   </style>
@@ -186,29 +185,32 @@
 <body>
   <header>
     <img src="header_active-fit.png" alt="Top Left Logo" class="top-left-logo" />
+    <img src="top_center_logo.png" alt="Top Center Logo" class="top-center-logo" />
   </header>
-
-  <div class="intro-paragraph">
-    <p>
-      Congratulations on taking the next step towards a healthier you!<br>
-      FBHP Members eighteen (18) years of age and older may choose to participate in the Active&Fit Direct™ comprehensive fitness membership program. Active&Fit Direct is a product provided by American Specialty Health Fitness, Inc. An enrollment fee, monthly fee and applicable taxes gives members access to the Active&Fit Direct network of fitness centers nationwide, and on-demand workout videos to stay active at home or on-the-go.<br>
-      To sign up for Active&Fit Direct, please confirm your FBHP Member Eligibility.
-    </p>
-  </div>
 
   <div class="step-container">
     <div class="step active">Step 1</div>
     <div class="step">Step 2</div>
   </div>
 
-  <main role="main" aria-labelledby="registration-heading">
-    <h1 id="registration-heading">New Registration</h1>
-    <p>Select the registration that correctly identifies you:</p>
-    <div class="link-box">
-      <a href="https://ramkumar-7.github.io/MemberSearchReg2/">Member</a>
+  <div class="content-wrapper">
+    <div class="intro-paragraph">
+      <p>
+        Congratulations on taking the next step towards a healthier you!<br>
+        FBHP Members eighteen (18) years of age and older may choose to participate in the Active&Fit Direct™ comprehensive fitness membership program. Active&Fit Direct is a product provided by American Specialty Health Fitness, Inc. An enrollment fee, monthly fee and applicable taxes gives members access to the Active&Fit Direct network of fitness centers nationwide, and on-demand workout videos to stay active at home or on-the-go.<br>
+        To sign up for Active&Fit Direct, please confirm your FBHP Member Eligibility.
+      </p>
     </div>
-    <button class="cancel-button" onclick="handleCancel()" aria-label="Cancel registration and exit page">Cancel</button>
-  </main>
+
+    <main role="main" aria-labelledby="registration-heading">
+      <h1 id="registration-heading">New Registration</h1>
+      <p>Select the registration that correctly identifies you:</p>
+      <div class="link-box">
+        <a href="https://ramkumar-7.github.io/MemberSearchReg2/">Member</a>
+      </div>
+      <button class="cancel-button" onclick="handleCancel()" aria-label="Cancel registration and exit page">Cancel</button>
+    </main>
+  </div>
 
   <img src="Activeandfit_4.png" alt="Active&Fit Logo" class="bottom-left-logo" />
 
