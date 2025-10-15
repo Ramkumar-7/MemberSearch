@@ -11,10 +11,10 @@
 
     html, body {
       height: 100%;
-      min-height: 100vh; /* Ensures a minimum height */
+      min-height: 100vh;
       margin: 0;
-      overflow-x: hidden; /* Prevents horizontal scrolling */
-      overflow-y: auto; /* Allows vertical scrolling when content exceeds viewport height */
+      overflow-x: hidden;
+      overflow-y: auto;
       font-family: Arial, sans-serif;
       background-image: url('activefit_bg.png');
       background-size: cover;
@@ -70,7 +70,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top: 100px; /* Adjusted margin to clear the top logo area */
+      margin-top: 100px;
       margin-bottom: 20px;
       gap: 6px;
     }
@@ -94,35 +94,35 @@
     }
 
     /* ================================================= */
-    /* MAIN CONTENT LAYOUT (FLEXBOX FIX) */
+    /* MAIN CONTENT LAYOUT (FLEXBOX) */
     /* ================================================= */
 
     .content-wrapper {
         display: flex;
-        justify-content: center; /* Center the two columns */
-        align-items: flex-start; /* Align content to the top */
-        max-width: 1000px; /* Limit the maximum width of the layout */
-        margin: 0 auto; /* Center the wrapper horizontally */
+        justify-content: center;
+        align-items: flex-start;
+        max-width: 1000px;
+        margin: 0 auto;
         padding: 0 10px;
     }
 
     .intro-paragraph {
       position: relative;
-      width: 480px; /* Fixed width for large screens */
+      width: 480px;
       font-size: 0.95em;
-      color: #003366; /* Ensures good contrast */
+      color: #003366;
       line-height: 1.6;
       margin-top: 20px;
     }
     
     main {
       position: relative;
-      width: 360px; /* Fixed width for the form box */
+      width: 360px;
       background-color: #fff;
       padding: 1.2em;
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      margin-left: 20px; /* Space between paragraph and form */
+      margin-left: 20px;
     }
 
     /* ================================================= */
@@ -185,8 +185,8 @@
     @media (max-width: 850px) {
         
         .content-wrapper {
-            flex-direction: column; /* Stack the paragraph and the form vertically */
-            align-items: center; /* Center the stacked items */
+            flex-direction: column;
+            align-items: center;
         }
         
       .top-left-logo {
@@ -202,31 +202,38 @@
         font-size: 0.8em;
         padding: 8px 12px;
       }
-
+        
+        /* FIX: Ensure intro-paragraph flows and is visible on small screens */
       .intro-paragraph {
-        position: static; /* Remove absolute positioning */
+        position: static; 
         margin: 1em;
-        width: auto; /* Allow full width of the container */
-         max-width: 480px; /* Cap the max-width on tablet/mobile */
+        width: auto; 
+         max-width: 480px; 
+        color: #333; /* Use a darker color for better visibility over the white overlay */
+        background: transparent; /* Ensure no background is blocking the white overlay effect */
       }
 
       main {
-        position: static; /* Remove absolute positioning */
-        margin: 1em auto; /* Center the form block and provide vertical spacing */
-        width: 90%; /* Use percentage width for responsiveness */
-        max-width: 360px; /* Cap the max-width of the form block */
-        margin-left: auto; /* Ensure margin-left is auto */
+        position: static; 
+        margin: 1em auto; 
+        width: 90%;
+        max-width: 360px;
+        margin-left: auto;
       }
 
       .bottom-left-logo {
-        position: static; /* Remove absolute positioning */
+        position: relative; /* Changed to relative */
+        bottom: auto;
+        left: auto;
         height: 40px;
         margin: 10px auto;
-        display: block;
+        display: block; /* Center it */
       }
         
         .footer-note {
-            position: static; /* Remove absolute positioning */
+            position: relative; /* Changed to relative */
+            bottom: auto;
+            right: auto;
             text-align: center;
             margin-top: 20px;
             padding-bottom: 20px;
