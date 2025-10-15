@@ -37,14 +37,6 @@
       object-fit: contain;
     }
 
-    .top-center-logo {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      height: 40px;
-    }
-
     .step-container {
       display: flex;
       justify-content: center;
@@ -75,24 +67,19 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      gap: 20px;
-      flex-wrap: wrap;
+      gap: 40px;
+      flex-wrap: nowrap;
       margin: 40px 20px;
     }
 
     .intro-paragraph {
-      width: 100%;
       max-width: 480px;
       font-size: 0.95em;
-      color: white;
+      color: #003366;
       line-height: 1.6;
-      background-color: rgba(0, 0, 0, 0.3);
-      padding: 1em;
-      border-radius: 6px;
     }
 
     main {
-      width: 100%;
       max-width: 360px;
       background-color: #fff;
       padding: 1.2em;
@@ -153,8 +140,8 @@
 
     @media (max-width: 768px) {
       .content-wrapper {
-        flex-direction: column;
-        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
       }
 
       .intro-paragraph,
@@ -165,10 +152,6 @@
       .top-left-logo {
         height: 50px;
         max-width: 120px;
-      }
-
-      .top-center-logo {
-        height: 30px;
       }
 
       .bottom-left-logo {
@@ -185,7 +168,6 @@
 <body>
   <header>
     <img src="header_active-fit.png" alt="Top Left Logo" class="top-left-logo" />
-    <img src="top_center_logo.png" alt="Top Center Logo" class="top-center-logo" />
   </header>
 
   <div class="step-container">
