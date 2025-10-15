@@ -6,15 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     html, body {
-      height: 100vh;
       margin: 0;
-      overflow: hidden;
+      padding: 0;
       font-family: Arial, sans-serif;
+      height: 100%;
       background-image: url('activefit_bg.png');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       position: relative;
+      overflow-x: hidden;
     }
 
     body::before {
@@ -26,35 +27,46 @@
       z-index: -1;
     }
 
+    header, main, footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    .top-left-logo,
+    .top-center-logo,
+    .bottom-left-logo {
+      max-width: 100%;
+      height: auto;
+    }
+
     .top-left-logo {
       position: absolute;
-      top: 10px;
-      left: 10px;
-      height: 80px;
-      max-width: 160px;
-      object-fit: contain;
+      top: 1em;
+      left: 1em;
+      width: 160px;
     }
 
     .top-center-logo {
       position: absolute;
-      top: 10px;
+      top: 1em;
       left: 50%;
       transform: translateX(-50%);
-      height: 40px;
+      width: 120px;
     }
 
     .step-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top: 60px;
-      gap: 6px;
+      margin-top: 5em;
+      flex-wrap: wrap;
+      gap: 0.5em;
     }
 
     .step {
       background-color: #ccc;
       color: #000;
-      padding: 10px 18px;
+      padding: 0.6em 1.2em;
       font-weight: bold;
       font-size: 0.9em;
       clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
@@ -69,17 +81,14 @@
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
 
-   main {
-  position: absolute;
-  top: 140px;         /* Moved down from 120px */
-  right: 42%;         /* Moved right from 45% */
-  transform: translateX(50%);
-  width: 360px;
-  background-color: #fff;
-  padding: 1.2em;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
+    main {
+      margin: 2em auto;
+      max-width: 400px;
+      background-color: #fff;
+      padding: 1.2em;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
 
     h1 {
       color: #003366;
@@ -119,66 +128,79 @@
     }
 
     .footer-note {
-      position: absolute;
-      bottom: 5px;
-      right: 10px;
+      text-align: right;
       font-size: 0.7em;
       color: #666;
+      padding: 1em;
     }
 
     .intro-paragraph {
-      position: absolute;
-      top: 64%;
-      left: 30px;
-      transform: translateY(-50%);
-      width: 480px;
+      margin: 2em auto;
+      max-width: 600px;
       font-size: 0.95em;
       color: white;
       line-height: 1.6;
-      padding-bottom: 100px;
+      padding: 1em;
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 8px;
     }
 
     .bottom-left-logo {
       position: absolute;
       bottom: 10px;
       left: 20px;
-      height: 80px;
+      width: 80px;
     }
 
-    @media (max-width: 480px) {
-      html, body {
-        overflow: auto;
+    /* 📱 Responsive Adjustments */
+    @media (max-width: 768px) {
+      .top-left-logo,
+      .top-center-logo {
+        width: 100px;
       }
 
       .step {
         font-size: 0.8em;
-        padding: 8px 12px;
-      }
-
-      .top-left-logo {
-        height: 50px;
-        max-width: 120px;
-      }
-
-      .top-center-logo {
-        height: 30px;
+        padding: 0.5em 1em;
       }
 
       .intro-paragraph {
-        position: static;
         margin: 1em;
-        width: auto;
-        padding-bottom: 0;
+        font-size: 0.9em;
       }
 
       main {
-        position: static;
-        margin: 1em auto;
+        margin: 1em;
         width: auto;
       }
 
       .bottom-left-logo {
-        height: 40px;
+        width: 60px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .top-left-logo,
+      .top-center-logo {
+        width: 80px;
+      }
+
+      .intro-paragraph {
+        font-size: 0.85em;
+      }
+
+      .step-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .step {
+        width: 100%;
+        text-align: center;
+      }
+
+      .bottom-left-logo {
+        width: 40px;
       }
     }
   </style>
@@ -186,6 +208,7 @@
 <body>
   <header>
     <img src="header_active-fit.png" alt="Top Left Logo" class="top-left-logo" />
+    <img src="top_center_logo.png" alt="Top Center Logo" class="top-center-logo" />
   </header>
 
   <div class="intro-paragraph">
