@@ -144,9 +144,8 @@
       color: #666;
     }
 
-    @media (max-width: 480px) {
-      .intro-paragraph,
-      .bottom-left-logo {
+    @media (max-width: 768px) {
+      .intro-paragraph {
         display: none;
       }
 
@@ -154,6 +153,16 @@
         position: static;
         margin: 1em auto;
         width: auto;
+      }
+
+      .bottom-left-logo {
+        height: 50px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .bottom-left-logo {
+        display: none;
       }
     }
   </style>
