@@ -61,18 +61,22 @@
     }
 
     .intro-paragraph {
-      position: relative;
-      margin: 2em auto;
-      max-width: 600px;
+      position: absolute;
+      top: 64%;
+      left: 30px;
+      transform: translateY(-50%);
+      width: 480px;
       font-size: 0.95em;
       color: white;
       line-height: 1.6;
-      padding: 0 20px;
+      padding-bottom: 100px;
     }
 
     main {
-      position: relative;
-      margin: 2em auto;
+      position: absolute;
+      top: 140px;
+      right: 42%;
+      transform: translateX(50%);
       width: 360px;
       background-color: #fff;
       padding: 1.2em;
@@ -140,21 +144,6 @@
       color: #666;
     }
 
-    @media (max-width: 768px) {
-      .intro-paragraph {
-        margin: 1em;
-        padding: 0 10px;
-      }
-
-      main {
-        width: 90%;
-      }
-
-      .bottom-left-logo {
-        height: 50px;
-      }
-    }
-
     @media (max-width: 480px) {
       .intro-paragraph,
       .bottom-left-logo {
@@ -162,8 +151,9 @@
       }
 
       main {
-        margin-top: 2em;
-        width: 90%;
+        position: static;
+        margin: 1em auto;
+        width: auto;
       }
     }
   </style>
