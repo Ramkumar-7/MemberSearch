@@ -69,28 +69,22 @@
 
     .intro-paragraph {
       position: absolute;
-      top: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
-      max-width: 600px;
-      max-height: 140px;
-      overflow-y: auto;
+      top: 100px;
+      left: 20px;
+      width: 320px;
       font-size: 1em;
-      color: #003366;
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 1em;
-      border-radius: 6px;
-      line-height: 1.5;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      color: white;
+      background: none;
+      padding: 0;
+      line-height: 1.6;
       z-index: 1;
     }
 
-     main {
+    main {
       position: absolute;
-      top: 140px;
-      right: 20%;
-      transform: translate(50%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       width: 420px;
       min-height: 360px;
       background-color: #fff;
@@ -162,8 +156,11 @@
 
     @media (max-width: 768px) {
       .intro-paragraph {
-        max-height: 120px;
+        width: 90%;
         font-size: 0.95em;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
       }
 
       main {
