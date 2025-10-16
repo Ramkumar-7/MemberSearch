@@ -8,7 +8,6 @@
     html, body {
       height: 100vh;
       margin: 0;
-      overflow: hidden;
       font-family: Arial, sans-serif;
       background-image: url('activefit_bg.png');
       background-size: cover;
@@ -33,14 +32,6 @@
       height: 80px;
       max-width: 160px;
       object-fit: contain;
-    }
-
-    .top-center-logo {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      height: 40px;
     }
 
     .step-container {
@@ -69,11 +60,19 @@
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
 
+    .intro-paragraph {
+      position: relative;
+      margin: 2em auto;
+      max-width: 600px;
+      font-size: 0.95em;
+      color: white;
+      line-height: 1.6;
+      padding: 0 20px;
+    }
+
     main {
-      position: absolute;
-      top: 140px;
-      right: 42%;
-      transform: translateX(50%);
+      position: relative;
+      margin: 2em auto;
       width: 360px;
       background-color: #fff;
       padding: 1.2em;
@@ -126,6 +125,13 @@
       font-size: 0.9em;
     }
 
+    .bottom-left-logo {
+      position: absolute;
+      bottom: 10px;
+      left: 20px;
+      height: 80px;
+    }
+
     .footer-note {
       position: absolute;
       bottom: 5px;
@@ -134,55 +140,18 @@
       color: #666;
     }
 
-    .intro-paragraph {
-      position: relative;
-      margin: 2em 30px 1em;
-      width: auto;
-      max-width: 600px;
-      font-size: 0.95em;
-      color: white;
-      line-height: 1.6;
-    }
-
-    .bottom-left-logo {
-      position: absolute;
-      bottom: 10px;
-      left: 20px;
-      height: 80px;
-    }
-
     @media (max-width: 768px) {
-      html, body {
-        overflow: auto;
-      }
-
-      .step {
-        font-size: 0.8em;
-        padding: 8px 12px;
-      }
-
-      .top-left-logo {
-        height: 50px;
-        max-width: 120px;
-      }
-
-      .top-center-logo {
-        height: 30px;
+      .intro-paragraph {
+        margin: 1em;
+        padding: 0 10px;
       }
 
       main {
-        position: static;
-        margin: 1em auto;
-        width: auto;
-      }
-
-      .intro-paragraph {
-        margin: 1em;
-        width: auto;
+        width: 90%;
       }
 
       .bottom-left-logo {
-        height: 40px;
+        height: 50px;
       }
     }
 
@@ -193,8 +162,8 @@
       }
 
       main {
-        margin: 1em auto;
-        width: auto;
+        margin-top: 2em;
+        width: 90%;
       }
     }
   </style>
@@ -212,7 +181,7 @@
     </p>
   </div>
 
-  <div class="step-container" role="navigation" aria-label="Progress steps">
+  <div class="step-container">
     <div class="step active">Step 1</div>
     <div class="step">Step 2</div>
   </div>
@@ -222,9 +191,9 @@
     <h1 id="registration-heading">New Registration</h1>
     <p>Select the registration that correctly identifies you:</p>
     <div class="link-box">
-      <a href="https://ramkumar-7.github.io/MemberSearchReg2/" title="Click to register as a Member">Member</a>
+      <a href="https://ramkumar-7.github.io/MemberSearchReg2/">Member</a>
     </div>
-    <button class="cancel-button" onclick="handleCancel()" aria-label="Cancel registration and exit page">Cancel</button>
+    <button class="cancel-button" onclick="handleCancel()">Cancel</button>
   </main>
 
   <img src="Activeandfit_4.png" alt="Active&Fit Logo" class="bottom-left-logo" />
