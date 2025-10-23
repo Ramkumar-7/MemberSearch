@@ -67,25 +67,26 @@
       cursor: pointer;
     }
 
+    .content-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 80px 30px 0;
+      gap: 30px;
+    }
+
     .intro-paragraph {
-      position: absolute;
-      top: 80px;
-      left: 30px;
+      flex: 1;
       max-width: 480px;
-      width: calc(100% - 60px);
-      font-size: 1.10em;
+      font-size: 1.15em;
       color: white;
       line-height: 1.6;
-      z-index: 1;
       word-wrap: break-word;
       overflow-wrap: break-word;
     }
 
     main {
-      position: absolute;
-      top: 50%;
-      right: 30px;
-      transform: translateY(-50%);
+      flex-shrink: 0;
       width: 420px;
       min-height: 360px;
       background-color: #fff;
@@ -157,17 +158,19 @@
     }
 
     @media (max-width: 1024px) {
+      .content-wrapper {
+        flex-direction: column;
+        align-items: center;
+        padding: 60px 5% 0;
+      }
+
       .intro-paragraph {
-        left: 5%;
         max-width: 90%;
         font-size: 1em;
         text-align: center;
       }
 
       main {
-        top: 60%;
-        right: 5%;
-        transform: translateY(-50%);
         width: 90%;
       }
 
@@ -192,34 +195,32 @@
       }
 
       main {
-        top: 50%;
-        right: 5%;
-        transform: translateY(-50%);
         width: 90%;
-        z-index: 2;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="intro-paragraph">
-    <p>
-      Congratulations on taking the next step towards a healthier you!<br><br>
-      FBHP Members eighteen (18) years of age and older may choose to participate in the Active&Fit Direct™ comprehensive fitness membership program. Active&Fit Direct is a product provided by American Specialty Health Fitness, Inc. An enrollment fee, monthly fee and applicable taxes gives members access to the Active&Fit Direct network of fitness centers nationwide, and on-demand workout videos to stay active at home or on-the-go.<br><br>
-      To sign up for Active&Fit Direct, please confirm your FBHP Member Eligibility.
-    </p>
-  </div>
-
-  <main role="main" aria-labelledby="registration-heading">
-    <img src="header_active-fit.png" alt="FBHP Program Logo" class="fbhp-logo" />
-    <h1 id="registration-heading">New Registration</h1>
-    <p>Select the registration that correctly identifies you:</p>
-    <div class="link-box">
-      <a href="https://ramkumar-7.github.io/MemberSearchReg2/">Member</a>
+  <div class="content-wrapper">
+    <div class="intro-paragraph">
+      <p>
+        Congratulations on taking the next step towards a healthier you!<br>
+        FBHP Members eighteen (18) years of age and older may choose to participate in the Active&Fit Direct™ comprehensive fitness membership program. Active&Fit Direct is a product provided by American Specialty Health Fitness, Inc. An enrollment fee, monthly fee and applicable taxes gives members access to the Active&Fit Direct network of fitness centers nationwide, and on-demand workout videos to stay active at home or on-the-go.<br>
+        To sign up for Active&Fit Direct, please confirm your FBHP Member Eligibility.
+      </p>
     </div>
-    <button class="cancel-button" onclick="handleCancel()" aria-label="Cancel registration and exit">Cancel</button>
-  </main>
+
+    <main role="main" aria-labelledby="registration-heading">
+      <img src="header_active-fit.png" alt="FBHP Program Logo" class="fbhp-logo" />
+      <h1 id="registration-heading">New Registration</h1>
+      <p>Select the registration that correctly identifies you:</p>
+      <div class="link-box">
+        <a href="https://ramkumar-7.github.io/MemberSearchReg2/">Member</a>
+      </div>
+      <button class="cancel-button" onclick="handleCancel()" aria-label="Cancel registration and exit">Cancel</button>
+    </main>
+  </div>
 
   <img src="Activeandfit_4.png" alt="Active&Fit Logo" class="bottom-left-logo" />
 
