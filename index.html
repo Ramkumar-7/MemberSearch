@@ -71,13 +71,10 @@
       position: absolute;
       top: 80px;
       left: 30px;
-      right: 30px;
-      max-width: 500px;
+      max-width: 480px;
       width: calc(100% - 60px);
-      font-size: 1.10em;
+      font-size: 1.15em;
       color: white;
-      background: none;
-      padding: 0;
       line-height: 1.6;
       z-index: 1;
       word-wrap: break-word;
@@ -161,13 +158,10 @@
 
     @media (max-width: 1024px) {
       .intro-paragraph {
-        top: 80px;
         left: 5%;
-        right: 5%;
         max-width: 90%;
         font-size: 1em;
         text-align: center;
-        transform: none;
       }
 
       main {
@@ -186,11 +180,13 @@
       }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
       .intro-paragraph {
         display: none !important;
       }
+    }
 
+    @media (max-width: 768px) {
       .bottom-left-logo {
         display: none !important;
       }
