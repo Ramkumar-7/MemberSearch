@@ -73,13 +73,15 @@
       left: 30px;
       right: 30px;
       max-width: 500px;
-      width: 100%;
+      width: calc(100% - 60px);
       font-size: 1.15em;
       color: white;
       background: none;
       padding: 0;
       line-height: 1.6;
       z-index: 1;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
     main {
@@ -185,7 +187,10 @@
     }
 
     @media (max-width: 768px) {
-      .intro-paragraph,
+      .intro-paragraph {
+        display: none !important;
+      }
+
       .bottom-left-logo {
         display: none !important;
       }
@@ -201,7 +206,6 @@
   </style>
 </head>
 <body>
-  
 
   <div class="intro-paragraph">
     <p>
